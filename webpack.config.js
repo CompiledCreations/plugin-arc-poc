@@ -3,7 +3,7 @@ const BundleAnalyzerPlugin =
   require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 module.exports = {
-  entry: "./src/index.tsx",
+  entry: "./src/main.tsx",
   output: {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "dist"),
@@ -17,6 +17,11 @@ module.exports = {
           chunks: "all",
           minChunks: 2,
           minSize: 0,
+        },
+        vendor: {
+          name: "vendor",
+          test: /[\\/]node_modules[\\/]/,
+          chunks: "all",
         },
       },
     },
