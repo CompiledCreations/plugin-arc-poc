@@ -3,7 +3,7 @@ const BundleAnalyzerPlugin =
   require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 module.exports = {
-  entry: "./src/index.ts",
+  entry: "./src/index.tsx",
   output: {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "dist"),
