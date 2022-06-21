@@ -2,6 +2,7 @@ const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = (env, argv) => {
   const isProduction = argv.mode === "production";
@@ -14,13 +15,6 @@ module.exports = (env, argv) => {
       path: path.resolve(__dirname, "dist"),
       clean: true,
     },
-    plugins: [
-      isProduction ? new MiniCssExtractPlugin() : undefined,
-      new BundleAnalyzerPlugin(),
-      new CopyPlugin({
-        patterns: ["public"],
-      }),
-    ].filter(Boolean),
     optimization: {
       splitChunks: {
         cacheGroups: {
@@ -37,6 +31,9 @@ module.exports = (env, argv) => {
           },
         },
       },
+    },
+    performance: {
+      hints: false,
     },
     module: {
       rules: [
@@ -57,6 +54,17 @@ module.exports = (env, argv) => {
     },
     resolve: {
       extensions: [".tsx", ".ts", ".js"],
+    },
+    plugins: [
+      isProduction ? new MiniCssExtractPlugin() : undefined,
+      // new BundleAnalyzerPlugin(),
+      new HtmlWebpackPlugin({
+        template: "./src/index.ejs",
+      }),
+    ].filter(Boolean),
+    devServer: {
+      static: "./dist",
+      port: 3000,
     },
   };
 };
