@@ -29,3 +29,9 @@ Even if chunks aren't split. It seems that Webpack's module caching system allow
 Using dynamic imports means that those modules are automatically split into their own chunks. This has the benefit of reducing complexity as we don't need to worry about defining multiple entry points all chunks will be automatically loaded when required by the main chunk.
 
 ### Vendor Chunks
+
+A common optimization for Webpack projects is to split all code from node_modules into a separate "vendor" chunk. This improves build speed and improves caching behaviour as the runtime chunk doesn't update as often as the chunks generated from our own code.
+
+Normally the vendor chunk has to be imported manually, this is usually hidden by plugins such as HtmlWebpackPlugin. However, for our library we don't want the client to have to manually add a script tag to load our vendor chunk. Again, we can use dynamic imports to resolve this problem.
+
+If make our main entry point module do nothing but load in the module containing the application and all the vendor dependencies, the need to manually load the vendor chunk goes away.
