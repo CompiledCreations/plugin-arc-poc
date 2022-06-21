@@ -5,10 +5,9 @@ const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 
 module.exports = (env, argv) => {
   const isProduction = argv.mode === "production";
-  console.log("Mode:", isProduction ? "production" : "development", env, argv);
 
   return {
-    entry: "./src/main.tsx",
+    entry: { entry: "./src/entry.tsx" },
     mode: isProduction ? "production" : "development",
     output: {
       filename: "[name].bundle.js",
