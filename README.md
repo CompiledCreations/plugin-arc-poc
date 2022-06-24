@@ -76,11 +76,12 @@ However, the chunks must be manually loaded by the client code and their modules
 
 ### Module Federation
 
-https://webpack.js.org/concepts/module-federation/
+The [Module Federation Plugin](https://webpack.js.org/concepts/module-federation/
+) would allow plugin code to be separated into entirely separate projects. This promotes better seperation and proper decoupling of the plugin code from the application. The application would become a container that can provide dependencies to the hosted plugin modules so dependencies could be shared. Plugin loading is performed by the same dynamic import mechanism as our code splitting solution, so plugin names can be used to specify what should be loaded, unlike with the multiple entry point solution.
 
-The Module Federation Plugin would allow plugin code to be separated into entirely separate projects. This promotes better seperation and proper decoupling of the plugin code from the application. The application would become a container that can provide dependencies to the hosted plugin modules so dependencies could be shared. Plugin loading is performed by the same dynamic import mechanism as our code splitting solution, so plugin names can be used to specify what should be loaded, unlike with the multiple entry point solution.
+The main drawback to this approach is a huge increase in complexity. The project would need to be structured as a monorepo. Each plugin would require its own webpack configuration and the main application would need to be configured as a container. Dependency sharing is not automatic so shared dependencies must be explicitly defined as part of the container's configuration.
 
-The main drawback to this approach is a huge increase in complexity. The project would need to be structured as a monorepo. Each plugin would require its own webpack configuration and the main application would need to be configured as a container.
+A good overview for this approach can be found [here](https://dev.to/bitovi/how-to-build-a-micro-frontend-with-webpacks-module-federation-plugin-n41).
 
 The added complexity of configuration of this solution outweighs the benefits provided by the better decoupling.
 
